@@ -8,6 +8,9 @@ export default function SearchField({
   defaultPokemonList,
   filterOptions,
   setFilterOptions,
+  generation,
+  listOfGenerations,
+  setListOfGenerations,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
@@ -24,6 +27,11 @@ export default function SearchField({
   const handleReset = () => {
     if (items.length === 1) {
       setItems(defaultPokemonList);
+    }
+
+    if (listOfGenerations) {
+      setItems(defaultPokemonList);
+      setFilterOptions(false);
     }
   };
   return (

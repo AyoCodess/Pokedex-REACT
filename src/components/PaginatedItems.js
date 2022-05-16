@@ -13,6 +13,10 @@ export default function PaginatedItems({ itemsPerPage }) {
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
+  const [listOfGenerations, setListOfGenerations] = useState();
+  const [pageReset, setPageReset] = useState();
+
+  const resetOption = 0;
 
   useEffect(() => {
     // - the amount of pokemon in existence
@@ -93,8 +97,18 @@ export default function PaginatedItems({ itemsPerPage }) {
             defaultPokemonList={defaultPokemonList}
             filterOptions={filterOptions}
             setFilterOptions={setFilterOptions}
+            listOfGenerations={listOfGenerations}
+            setListOfGenerations={setListOfGenerations}
           />
-          {filterOptions && <FilterOptionsList />}
+          {filterOptions && (
+            <FilterOptionsList
+              defaultPokemonList={defaultPokemonList}
+              setItems={setItems}
+              items={items}
+              listOfGenerations={listOfGenerations}
+              setListOfGenerations={setListOfGenerations}
+            />
+          )}
 
           {!filteredList && (
             <>
@@ -115,6 +129,7 @@ export default function PaginatedItems({ itemsPerPage }) {
                 pageCount={pageCount}
                 previousLabel='< Previous'
                 renderOnZeroPageCount={null}
+                forcePage={resetOption}
               />
             </>
           )}

@@ -19,7 +19,6 @@ export default function PokemonDetails({
     const fetchDetails = async () => {
       //   setLoading(true);
       try {
-        console.log(pokemonName);
         if (pokemonName) {
           const data = await axios(
             `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
@@ -39,9 +38,6 @@ export default function PokemonDetails({
     fetchDetails();
   }, [pokemonName]);
 
-  if (pokemonDetail) {
-    console.log(pokemonDetail.moves[0].move.name);
-  }
   return (
     <>
       {pokemonDetail && (
