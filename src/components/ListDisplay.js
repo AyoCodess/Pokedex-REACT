@@ -1,15 +1,40 @@
+import React, { useState } from 'react';
 import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import PokemonDetails from './PokemonDetails';
 
-export default function ListDisplay({ currentItems }) {
+export default function ListDisplay({
+  currentItems,
+  loading,
+  setLoading,
+  error,
+  setError,
+}) {
+  const [open, setOpen] = useState(false);
+  const [pokemonName, setPokemonName] = useState({});
+
+  const displayDetails = (pokemon) => {
+    setPokemonName(pokemon);
+    setOpen(true);
+  };
   return (
     <>
+      <PokemonDetails
+        open={open}
+        setOpen={setOpen}
+        pokemonName={pokemonName}
+        loading={loading}
+        setLoading={setLoading}
+        error={error}
+        setError={setError}
+      />
       {currentItems && (
         <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {currentItems.map((pokemon, index) => {
             const id = +pokemon.url.split('/').splice(6, 1).join();
             return (
               <li
+                onClick={() => displayDetails(pokemon)}
                 key={index + 1}
                 className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200'>
                 <div className='w-full flex items-center justify-between p-6 space-x-6'>

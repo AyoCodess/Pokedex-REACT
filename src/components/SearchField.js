@@ -41,6 +41,9 @@ export default function SearchField({
             placeholder='Charizard'
             onChange={(e) => {
               setSearchedForPokemon(e.target.value);
+              if (searchedForPokemon) {
+                setItems(defaultPokemonList);
+              }
             }}
           />
         </div>

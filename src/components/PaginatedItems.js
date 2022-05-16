@@ -44,17 +44,19 @@ export default function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
-    if (items.length > 1) {
-      // Fetch items from another resources.
-      const endOffset = itemOffset + itemsPerPage;
-      console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-      setCurrentItems(items.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(items.length / itemsPerPage));
-    }
+    if (items) {
+      if (items.length > 1) {
+        // Fetch items from another resources.
+        const endOffset = itemOffset + itemsPerPage;
+        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        setCurrentItems(items.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(items.length / itemsPerPage));
+      }
 
-    if (items.length === 1) {
-      setCurrentItems(items);
-      setPageCount(Math.ceil(items.length / itemsPerPage));
+      if (items.length === 1) {
+        setCurrentItems(items);
+        setPageCount(Math.ceil(items.length / itemsPerPage));
+      }
     }
   }, [itemOffset, itemsPerPage, items]);
 
@@ -66,7 +68,7 @@ export default function PaginatedItems({ itemsPerPage }) {
     );
     setItemOffset(newOffset);
   };
-  console.log(items);
+
   return (
     <>
       {error && (
@@ -91,7 +93,13 @@ export default function PaginatedItems({ itemsPerPage }) {
 
           {!filteredList && (
             <>
-              <ListDisplay currentItems={currentItems} />
+              <ListDisplay
+                currentItems={currentItems}
+                loading={loading}
+                setLoading={setLoading}
+                error={error}
+                setError={setError}
+              />
               <ReactPaginate
                 className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
             '
