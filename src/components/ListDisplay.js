@@ -2,11 +2,10 @@ import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export default function ListDisplay({ currentItems }) {
-  console.log(currentItems);
   return (
     <>
       {currentItems && (
-        <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {currentItems.map((pokemon, index) => {
             const id = +pokemon.url.split('/').splice(6, 1).join();
             return (
@@ -28,7 +27,7 @@ export default function ListDisplay({ currentItems }) {
                 </p> */}
                   </div>
                   <LazyLoadImage
-                    className='w-10 h-10 bg-gray-300 rounded-full flex-shrink-0'
+                    className='w-18 h-18 bg-gray-300 rounded-full flex-shrink-0'
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
                     alt={pokemon.name}
                   />

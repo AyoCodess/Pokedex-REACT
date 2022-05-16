@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <PaginatedItems itemsPerPage={5} />
+      <PaginatedItems itemsPerPage={6} />
       <Footer />
     </>
   );

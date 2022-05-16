@@ -3,11 +3,14 @@ import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import ListDisplay from './ListDisplay';
 import '../styles/pagination.scss';
+import SearchField from './SearchField';
 
 export default function PaginatedItems({ itemsPerPage }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
+  const [defaultPokemonList, setDefaultPokemonList] = useState(null);
+  const [filteredList, setFilteredList] = useState(null);
 
   useEffect(() => {
     // - the amount of pokemon in existence
@@ -20,6 +23,7 @@ export default function PaginatedItems({ itemsPerPage }) {
         );
 
         setItems(data.data.results);
+        setDefaultPokemonList(data.data.results);
 
         setError(false);
         setLoading(false);
@@ -40,14 +44,18 @@ export default function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
-    if (items) {
+    if (items.length > 1) {
       // Fetch items from another resources.
       const endOffset = itemOffset + itemsPerPage;
       console.log(`Loading items from ${itemOffset} to ${endOffset}`);
       setCurrentItems(items.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(items.length / itemsPerPage));
     }
-    console.log({ items });
+
+    if (items.length === 1) {
+      setCurrentItems(items);
+      setPageCount(Math.ceil(items.length / itemsPerPage));
+    }
   }, [itemOffset, itemsPerPage, items]);
 
   // Invoke when user click to request another page.
@@ -58,9 +66,7 @@ export default function PaginatedItems({ itemsPerPage }) {
     );
     setItemOffset(newOffset);
   };
-
-  console.log(currentItems);
-
+  console.log(items);
   return (
     <>
       {error && (
@@ -75,18 +81,30 @@ export default function PaginatedItems({ itemsPerPage }) {
       )}
       {!loading && !error && (
         <>
-          <ListDisplay currentItems={currentItems} />
-          <ReactPaginate
-            className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
-            '
-            breakLabel='...'
-            nextLabel='Next >'
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel='< Previous'
-            renderOnZeroPageCount={null}
+          <SearchField
+            items={items}
+            setItems={setItems}
+            filteredList={filteredList}
+            setFilteredList={setFilteredList}
+            defaultPokemonList={defaultPokemonList}
           />
+
+          {!filteredList && (
+            <>
+              <ListDisplay currentItems={currentItems} />
+              <ReactPaginate
+                className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
+            '
+                breakLabel='...'
+                nextLabel='Next >'
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel='< Previous'
+                renderOnZeroPageCount={null}
+              />
+            </>
+          )}
         </>
       )}
     </>
