@@ -4,6 +4,7 @@ import axios from 'axios';
 import ListDisplay from './ListDisplay';
 import '../styles/pagination.scss';
 import SearchField from './SearchField';
+import FilterOptionsList from './FilterOptionsList';
 
 export default function PaginatedItems({ itemsPerPage }) {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,7 @@ export default function PaginatedItems({ itemsPerPage }) {
   const [items, setItems] = useState(null);
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
+  const [filterOptions, setFilterOptions] = useState(false);
 
   useEffect(() => {
     // - the amount of pokemon in existence
@@ -89,7 +91,10 @@ export default function PaginatedItems({ itemsPerPage }) {
             filteredList={filteredList}
             setFilteredList={setFilteredList}
             defaultPokemonList={defaultPokemonList}
+            filterOptions={filterOptions}
+            setFilterOptions={setFilterOptions}
           />
+          {filterOptions && <FilterOptionsList />}
 
           {!filteredList && (
             <>

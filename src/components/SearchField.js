@@ -6,6 +6,8 @@ export default function SearchField({
   filteredList,
   setFilteredList,
   defaultPokemonList,
+  filterOptions,
+  setFilterOptions,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
@@ -25,13 +27,13 @@ export default function SearchField({
     }
   };
   return (
-    <div className='mt-4'>
+    <div className='mt-4 w-full'>
       <label
         htmlFor='pokemon'
-        className='block w-2/3 mx-auto text-sm font-medium text-gray-700'>
+        className='block w-2/3 mx-auto text-sm text-center font-medium text-gray-700'>
         Search Pokemon
       </label>
-      <div className='flex gap-2 mx-auto w-max'>
+      <div className='flex flex-col sm:flex-row mt-2 gap-2 mx-auto justify-center items-center  '>
         <div className='mt-1'>
           <input
             type='text'
@@ -47,18 +49,28 @@ export default function SearchField({
             }}
           />
         </div>
-        <button
-          type='button'
-          onClick={handleSearch}
-          className='w-max border-gray-200 p-2 rounded-md shadow'>
-          Search
-        </button>
-        <button
-          type='button'
-          onClick={handleReset}
-          className='w-max border-gray-200 p-2 rounded-md shadow'>
-          Reset
-        </button>
+        <div className='flex gap-2 '>
+          <button
+            type='button'
+            onClick={handleSearch}
+            className='w-max border-gray-200 p-2 rounded-md shadow'>
+            Search
+          </button>
+          <button
+            type='button'
+            onClick={handleReset}
+            className='w-max border-gray-200 p-2 rounded-md shadow'>
+            Reset
+          </button>
+          <button
+            type='button'
+            onClick={() => {
+              filterOptions ? setFilterOptions(false) : setFilterOptions(true);
+            }}
+            className='w-max border-gray-200 p-2 rounded-md shadow'>
+            Filter Options
+          </button>
+        </div>
       </div>
     </div>
   );
