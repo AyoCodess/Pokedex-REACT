@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import ListDisplay from './ListDisplay';
+import '../styles/pagination.scss';
 
 export default function PaginatedItems({ itemsPerPage }) {
   const [loading, setLoading] = useState(false);
@@ -76,12 +77,14 @@ export default function PaginatedItems({ itemsPerPage }) {
         <>
           <ListDisplay currentItems={currentItems} />
           <ReactPaginate
+            className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
+            '
             breakLabel='...'
-            nextLabel='next >'
+            nextLabel='Next >'
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
             pageCount={pageCount}
-            previousLabel='< previous'
+            previousLabel='< Previous'
             renderOnZeroPageCount={null}
           />
         </>

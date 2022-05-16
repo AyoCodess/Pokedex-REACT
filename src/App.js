@@ -1,10 +1,7 @@
-import './App.css';
+import './App.scss';
 import PaginatedItems from './components/PaginatedItems';
-
-import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import axios from 'axios';
 
 function App() {
   return (
