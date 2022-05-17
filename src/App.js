@@ -99,6 +99,7 @@ function App() {
           element={
             <Favorites
               savedPokemon={savedPokemon}
+              setSavedPokemon={setSavedPokemon}
               pokemonName={pokemonName}
               setPokemonName={setPokemonName}
               pokemonDetail={pokemonDetail}

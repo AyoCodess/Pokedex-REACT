@@ -4,6 +4,7 @@ import FavoriteDisplay from './FavouriteDisplay';
 
 function Favorites({
   savedPokemon,
+  setSavedPokemon,
   pokemonName,
   setPokemonName,
   pokemonDetail,
@@ -19,6 +20,7 @@ function Favorites({
       </div>
       <FavoriteDisplay
         savedPokemon={savedPokemon}
+        setSavedPokemon={setSavedPokemon}
         pokemonName={pokemonName}
         setPokemonName={setPokemonName}
         pokemonDetail={pokemonDetail}

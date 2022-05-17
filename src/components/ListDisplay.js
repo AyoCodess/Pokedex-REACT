@@ -17,8 +17,7 @@ export default function ListDisplay({
   setSavedPokemon,
 }) {
   const [open, setOpen] = useState(false);
-  const [weight, setWeight] = useState();
-  const [type, setType] = useState();
+  const [data, setData] = useState();
 
   const displayDetails = (pokemon) => {
     console.log(pokemon);
@@ -30,42 +29,13 @@ export default function ListDisplay({
     const fetchDetails = async () => {
       try {
         if (currentItems) {
-          const pokemon1 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[0].name}`
-          );
-          const pokemon2 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[1].name}`
-          );
-          const pokemon3 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[2].name}`
-          );
-          const pokemon4 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[3].name}`
-          );
-          const pokemon5 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[4].name}`
-          );
-          const pokemon6 = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${currentItems[5].name}`
-          );
+          let newList = currentItems.map((pokemon) => {
+            return `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
+          });
 
-          setWeight([
-            pokemon1.data.weight,
-            pokemon2.data.weight,
-            pokemon3.data.weight,
-            pokemon4.data.weight,
-            pokemon5.data.weight,
-            pokemon6.data.weight,
-          ]);
-
-          setType([
-            pokemon1.data.types,
-            pokemon2.data.types,
-            pokemon3.data.types,
-            pokemon4.data.types,
-            pokemon5.data.types,
-            pokemon6.data.types,
-          ]);
+          await Promise.all(newList.map((url) => axios(url))).then((data) => {
+            setData(data);
+          });
         }
       } catch (err) {
         console.error(err);
@@ -74,7 +44,6 @@ export default function ListDisplay({
 
     fetchDetails();
   }, [currentItems]);
-
   return (
     <>
       <PokemonDetails
@@ -117,17 +86,16 @@ export default function ListDisplay({
                         save
                       </button>
                     </div>
-
-                    {weight && (
+                    {data && (
                       <p className='mt-1 text-gray-500 text-sm truncate'>
-                        <span>Weight:</span> {weight[index]} lb
+                        <span>Weight:</span> {data[index].data.weight} lb
                       </p>
                     )}
 
-                    {type && (
+                    {data && (
                       <p className='mt-1  text-sm truncate'>
-                        Types:{' '}
-                        {type[index].map((t, i) => {
+                        Types:&nbsp;
+                        {data[index].data.types.map((t, i) => {
                           return (
                             <span key={t.type.name}>{`${t.type.name} `}</span>
                           );
