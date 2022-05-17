@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
-import axios from 'axios';
 import ListDisplay from '../components/ListDisplay';
 import '../styles/pagination.scss';
 import SearchField from '../components/SearchField';

@@ -1,6 +1,6 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -49,7 +49,7 @@ function App() {
       }
     };
     fetchPokemon();
-  }, []);
+  }, [defaultPokemonList]);
 
   useEffect(() => {
     // - the amount of pokemon in existence

@@ -1,8 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/outline';
-import axios from 'axios';
 
 export default function PokemonDetails({
   open,
@@ -47,7 +45,7 @@ export default function PokemonDetails({
                     leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'>
                     <Dialog.Panel className='relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-6'>
                       <div>
-                        <div className='mx-auto flex items-center justify-center  h-36 w-36 rounded-full '>
+                        <div className='mx-auto flex items-center justify-center  rounded-full '>
                           <img
                             className='h-36 w-36'
                             aria-hidden='true'

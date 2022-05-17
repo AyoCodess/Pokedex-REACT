@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FavoriteDisplay from '../components/FavouriteDisplay';
+import FavoriteDisplay from '../components/FavoriteDisplay';
 
 function Favorites({
   savedPokemon,

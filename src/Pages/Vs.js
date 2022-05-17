@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import BasicBtn from '../components/BasicBtn';
 import BasicInputField from '../components/BasicInputField';
 import VsContainer from '../components/VsContainer';
-import axios from 'axios';
 
 function Vs({ defaultPokemonList, savedList, setSavedList, vsData }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState([]);
@@ -20,6 +19,7 @@ function Vs({ defaultPokemonList, savedList, setSavedList, vsData }) {
           }
         });
       }
+      return pokemon;
     });
   };
 

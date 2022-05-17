@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import PokemonDetails from './PokemonDetails';
 import axios from 'axios';
@@ -25,7 +24,6 @@ export default function ListDisplay({
   };
 
   useEffect(() => {
-    console.log({ data });
     const fetchDetails = async () => {
       try {
         if (currentItems) {
@@ -43,6 +41,7 @@ export default function ListDisplay({
     };
 
     fetchDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItems]);
 
   console.log({ data });
@@ -66,7 +65,7 @@ export default function ListDisplay({
             return (
               <li
                 key={index + 1}
-                className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 w-full mx-4'>
+                className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 w-96 mx-4'>
                 <div className='w-full flex items-center justify-between p-6 space-x-6'>
                   <div className='flex-1 truncate'>
                     <div className='flex items-center space-x-3'>
