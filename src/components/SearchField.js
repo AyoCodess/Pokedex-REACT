@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import BasicBtn from './BasicBtn';
+import BasicInputField from './BasicInputField';
 
 export default function SearchField({
   items,
@@ -39,49 +41,27 @@ export default function SearchField({
   };
   return (
     <div className='mt-4 w-full'>
-      <label
-        htmlFor='pokemon'
-        className='block w-2/3 mx-auto text-sm text-center font-medium text-gray-700'>
-        Search Pokemon
-      </label>
-      <div className='flex flex-col sm:flex-row mt-2 gap-2 mx-auto justify-center items-center  '>
-        <div className='mt-1'>
-          <input
-            type='text'
-            name='pokemon'
-            id='pokemon'
-            className='shadow-sm w-full mx-auto p-2 focus:ring-red-500 focus:border-red-500 block sm:text-sm border-gray-300 rounded-md'
-            placeholder='Charizard'
-            onChange={(e) => {
-              setSearchedForPokemon(e.target.value);
-              if (searchedForPokemon) {
-                setItems(defaultPokemonList);
-              }
-            }}
-          />
-        </div>
-        <div className='flex gap-2 '>
-          <button
-            type='button'
-            onClick={handleSearch}
-            className='w-max border-gray-200 p-2 rounded-md shadow'>
-            Search
-          </button>
-          <button
-            type='button'
-            onClick={handleReset}
-            className='w-max border-gray-200 p-2 rounded-md shadow'>
-            Reset
-          </button>
-          <button
-            type='button'
-            onClick={() => {
-              filterOptions ? setFilterOptions(false) : setFilterOptions(true);
-            }}
-            className='w-max border-gray-200 p-2 rounded-md shadow'>
-            Filter Options
-          </button>
-        </div>
+      <BasicInputField
+        labelTitle={'Search Pokemon'}
+        inputName={'pokemon'}
+        placeholder={'Charizard'}
+        onChange={(e) => {
+          setSearchedForPokemon(e.target.value);
+          if (searchedForPokemon) {
+            setItems(defaultPokemonList);
+          }
+        }}
+      />
+
+      <div className='flex gap-2 justify-center mt-4 '>
+        <BasicBtn onClick={handleSearch} title={'Search'} />
+        <BasicBtn onClick={handleReset} title={'Reset'} />
+        <BasicBtn
+          onClick={() => {
+            filterOptions ? setFilterOptions(false) : setFilterOptions(true);
+          }}
+          title={' Filter Options'}
+        />
       </div>
     </div>
   );

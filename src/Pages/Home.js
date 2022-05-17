@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
-import ListDisplay from './ListDisplay';
+import ListDisplay from '../components/ListDisplay';
 import '../styles/pagination.scss';
-import SearchField from './SearchField';
-import FilterOptionsList from './FilterOptionsList';
+import SearchField from '../components/SearchField';
+import FilterOptionsList from '../components/FilterOptionsList';
 
-export default function PaginatedItems({
+export default function Home({
   itemsPerPage,
   items,
   error,

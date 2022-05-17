@@ -1,10 +1,11 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import PaginatedItems from './components/PaginatedItems';
+import Home from './Pages/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Favorites from './components/Favorites';
+import Favorites from './Pages/Favorites';
+import Vs from './Pages/Vs';
 import axios from 'axios';
 
 function App() {
@@ -77,7 +78,7 @@ function App() {
         <Route
           path='/'
           element={
-            <PaginatedItems
+            <Home
               itemsPerPage={6}
               items={items}
               error={error}
@@ -107,7 +108,12 @@ function App() {
             />
           }
         />
+        <Route
+          path='/vs'
+          element={<Vs defaultPokemonList={defaultPokemonList} />}
+        />
       </Routes>
+
       <Footer />
     </>
   );
