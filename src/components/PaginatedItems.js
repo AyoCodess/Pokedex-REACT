@@ -15,37 +15,16 @@ export default function PaginatedItems({
   setLoading,
   setItems,
   defaultPokemonList,
+  setSavedPokemon,
+  pokemonName,
+  setPokemonName,
+  pokemonDetail,
+  setPokemonDetail,
 }) {
-  const [pokemonDetail, setPokemonDetail] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
   const [pageReset, setPageReset] = useState(null);
-  const [pokemonName, setPokemonName] = useState({});
-
-  useEffect(() => {
-    // - the amount of pokemon in existence
-    const fetchDetails = async () => {
-      //   setLoading(true);
-      try {
-        if (pokemonName) {
-          const data = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
-          );
-
-          setPokemonDetail(data.data);
-        }
-
-        // setError(false);
-        // setLoading(false);
-      } catch (err) {
-        // console.log(err);
-        // setError(true);
-        // setLoading(false);
-      }
-    };
-    fetchDetails();
-  }, [pokemonName]);
 
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
@@ -128,6 +107,7 @@ export default function PaginatedItems({
                 setPokemonDetail={setPokemonDetail}
                 pokemonName={pokemonName}
                 setPokemonName={setPokemonName}
+                setSavedPokemon={setSavedPokemon}
               />
               <ReactPaginate
                 className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg

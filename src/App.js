@@ -12,6 +12,9 @@ function App() {
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
+  const [savedPokemon, setSavedPokemon] = useState([]);
+  const [pokemonName, setPokemonName] = useState({});
+  const [pokemonDetail, setPokemonDetail] = useState(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -43,6 +46,30 @@ function App() {
     fetchPokemon();
   }, []);
 
+  useEffect(() => {
+    // - the amount of pokemon in existence
+    const fetchDetails = async () => {
+      //   setLoading(true);
+      try {
+        if (pokemonName) {
+          const data = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
+          );
+
+          setPokemonDetail(data.data);
+        }
+
+        // setError(false);
+        // setLoading(false);
+      } catch (err) {
+        // console.log(err);
+        // setError(true);
+        // setLoading(false);
+      }
+    };
+    fetchDetails();
+  }, [pokemonName]);
+
   return (
     <>
       <Header />
@@ -59,10 +86,26 @@ function App() {
               setLoading={setLoading}
               setItems={setItems}
               defaultPokemonList={defaultPokemonList}
+              setSavedPokemon={setSavedPokemon}
+              pokemonName={pokemonName}
+              setPokemonName={setPokemonName}
+              pokemonDetail={pokemonDetail}
+              setPokemonDetail={setPokemonDetail}
             />
           }
         />
-        <Route path='/favorites' element={<Favorites />} />
+        <Route
+          path='/favorites'
+          element={
+            <Favorites
+              savedPokemon={savedPokemon}
+              pokemonName={pokemonName}
+              setPokemonName={setPokemonName}
+              pokemonDetail={pokemonDetail}
+              setPokemonDetail={setPokemonDetail}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </>
