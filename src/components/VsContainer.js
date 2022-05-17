@@ -1,6 +1,6 @@
 /* This VsContainer {data}requires Tailwind CSS v2.0+ */
 
-export default function VsContainer({ data }) {
+export default function VsContainer({ data, setSavedList }) {
   return (
     <div className='bg-white'>
       <div className='max-w-7xl mx-auto py-12 px-4 text-center sm:px-6 lg:px-8 lg:py-24'>
@@ -12,22 +12,27 @@ export default function VsContainer({ data }) {
               return (
                 <li key={i}>
                   <div className='space-y-4'>
-                    <img
-                      className='mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24'
-                      src={pokemon.data.sprites.front_default}
-                      alt=''
-                    />
+                    <div className='flex'>
+                      <img
+                        className='mx-auto h-28 w-28 rounded-full  '
+                        src={pokemon.data.sprites.front_default}
+                        alt=''
+                      />
+                      <img
+                        className='mx-auto h-28 w-28 rounded-full '
+                        src={pokemon.data.sprites.back_default}
+                        alt=''
+                      />
+                    </div>
                     <button
-                      //   onClick={() =>
-                      //     setSavedPokemon((prev) => {
-                      //       if (prev.includes(pokemon)) {
-                      //         console.log('pokemon already saved');
-                      //         return prev;
-                      //       } else {
-                      //         return prev.concat(pokemon);
-                      //       }
-                      //     })
-                      //   }
+                      onClick={() =>
+                        setSavedList((prev) => {
+                          return prev.filter((pokemon) => {
+                            console.log(pokemon.name, prev[i].name);
+                            return pokemon.name !== prev[i].name;
+                          });
+                        })
+                      }
                       className='flex-shrink-0 inline-block px-2 py-0.5 text-red-800 text-xs font-medium bg-red-100 rounded-full'>
                       remove
                     </button>

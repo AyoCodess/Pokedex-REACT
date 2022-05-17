@@ -82,7 +82,9 @@ function Vs({ defaultPokemonList }) {
           custom={'h-10 mt-auto'}
         />
       </div>
-      {data.length >= 1 && <VsContainer data={data} />}
+      {data.length >= 1 && (
+        <VsContainer data={data} setSavedList={setSavedList} />
+      )}
     </>
   );
 }

@@ -14,6 +14,10 @@ export default function PokemonDetails({
   setError,
   pokemonDetail,
 }) {
+  if (pokemonDetail) {
+    console.log(pokemonDetail);
+  }
+
   return (
     <>
       {pokemonDetail && (
@@ -50,6 +54,12 @@ export default function PokemonDetails({
                             src={pokemonDetail.sprites.front_default}
                             alt={pokemonName}
                           />
+                          <img
+                            className='h-36 w-36'
+                            aria-hidden='true'
+                            src={pokemonDetail.sprites.back_default}
+                            alt={pokemonName}
+                          />
                         </div>
 
                         <div className='mt-3 text-center sm:mt-5'>
@@ -67,23 +77,23 @@ export default function PokemonDetails({
                               </p>
                               <div>
                                 <hr className='my-3' />
-                                <span>Moves: </span>
-                                <p className='flex flex-col '>
-                                  <span className='block'>
-                                    {pokemonDetail.moves[0].move.name}
-                                  </span>
-                                  <span className='block'>
-                                    {pokemonDetail.moves[1].move.name}
-                                  </span>
-                                  <span className='block'>
-                                    {pokemonDetail.moves[2].move.name}
-                                  </span>
-                                  <span className='block'>
-                                    {pokemonDetail.moves[3].move.name}
-                                  </span>
-                                </p>
+                                <span>All Moves: </span>
+                                <details>
+                                  <p className='grid grid-cols-2 '>
+                                    {pokemonDetail.moves.map((move) => {
+                                      console.log(move.move.name);
+                                      return (
+                                        <span className=''>
+                                          {move.move.name}
+                                        </span>
+                                      );
+                                    })}
+                                  </p>
+                                </details>
                                 <hr className='my-3' />
                               </div>
+                              <p>Base Stats</p>
+                              <details>{}</details>
                             </details>
                           </div>
                         </div>
