@@ -6,41 +6,22 @@ import '../styles/pagination.scss';
 import SearchField from './SearchField';
 import FilterOptionsList from './FilterOptionsList';
 
-export default function PaginatedItems({ itemsPerPage }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [items, setItems] = useState(null);
-  const [defaultPokemonList, setDefaultPokemonList] = useState(null);
+export default function PaginatedItems({
+  itemsPerPage,
+  items,
+  error,
+  setError,
+  loading,
+  setLoading,
+  setItems,
+  defaultPokemonList,
+}) {
   const [pokemonDetail, setPokemonDetail] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
   const [pageReset, setPageReset] = useState(null);
   const [pokemonName, setPokemonName] = useState({});
-
-  useEffect(() => {
-    // - the amount of pokemon in existence
-    const fetchPokemon = async () => {
-      let PokemonCount = 898;
-      setLoading(true);
-      try {
-        const data = await axios(
-          `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=${PokemonCount}`
-        );
-
-        setItems(data.data.results);
-        setDefaultPokemonList(data.data.results);
-
-        setError(false);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        setError(true);
-        setLoading(false);
-      }
-    };
-    fetchPokemon();
-  }, []);
 
   useEffect(() => {
     // - the amount of pokemon in existence

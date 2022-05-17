@@ -106,23 +106,19 @@ export default function ListDisplay({
                       </button>
                     </div>
 
-                    {weight && currentItems && (
+                    {weight && (
                       <p className='mt-1 text-gray-500 text-sm truncate'>
-                        <span>Weight:</span> {weight[index]}
+                        <span>Weight:</span> {weight[index]} lb
                       </p>
                     )}
-                    {/* {type && currentItems && (
-                      <p className='mt-1 text-gray-500 text-sm truncate'>
-                        <span>Types:</span>
-                        {console.log('log', type[index])}
-                      </p>
-                    )} */}
 
-                    {type && currentItems && (
-                      <p>
+                    {type && (
+                      <p className='mt-1  text-sm truncate'>
                         Types:{' '}
                         {type[index].map((t, i) => {
-                          return <span>{`${t.type.name} `}</span>;
+                          return (
+                            <span key={t.type.name}>{`${t.type.name} `}</span>
+                          );
                         })}
                       </p>
                     )}
