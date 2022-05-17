@@ -7,7 +7,7 @@ export default function VsContainer({ data }) {
         <div className='space-y-8 sm:space-y-12'>
           <ul className='mx-auto grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 md:gap-x-6 lg:max-w-5xl lg:gap-x-8 lg:gap-y-12 xl:grid-cols-6'>
             {data.map((pokemon, i) => {
-              console.log(pokemon.data.sprites.front_default);
+              //   console.log(pokemon.data.sprites.front_default);
               return (
                 <li key={i}>
                   <div className='space-y-4'>

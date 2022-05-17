@@ -13,14 +13,24 @@ function Vs({ defaultPokemonList }) {
   const handleSearch = (pokemonName) => {
     defaultPokemonList.filter((pokemon) => {
       if (pokemonName === pokemon.name) {
-        return setSavedList((prev) => [pokemon, ...prev]);
-      } else {
-        console.log('Pokemon does not exist');
-        return savedList;
+        console.log('passed 1');
+
+        return setSavedList((prev) => {
+          console.log({ prev });
+          if (prev.includes(pokemon)) {
+            console.log('pokemon already saved');
+            return prev;
+          } else {
+            console.log('passed 2');
+            console.log({ pokemon });
+            return [pokemon, ...prev];
+          }
+        });
       }
     });
   };
 
+  console.log({ savedList });
   useEffect(() => {
     const fetchDetails = async () => {
       try {
