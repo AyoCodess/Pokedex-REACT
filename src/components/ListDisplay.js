@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import PokemonDetails from './PokemonDetails';
+import axios from 'axios';
 
 export default function ListDisplay({
   currentItems,
@@ -9,20 +10,76 @@ export default function ListDisplay({
   setLoading,
   error,
   setError,
+  pokemonName,
+  setPokemonName,
+  pokemonDetail,
+  setPokemonDetail,
 }) {
   const [open, setOpen] = useState(false);
-  const [pokemonName, setPokemonName] = useState({});
+  const [weight, setWeight] = useState();
+  const [type, setType] = useState();
 
   const displayDetails = (pokemon) => {
     setPokemonName(pokemon);
     setOpen(true);
   };
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        if (currentItems) {
+          const pokemon1 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[0].name}`
+          );
+          const pokemon2 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[1].name}`
+          );
+          const pokemon3 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[2].name}`
+          );
+          const pokemon4 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[3].name}`
+          );
+          const pokemon5 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[4].name}`
+          );
+          const pokemon6 = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${currentItems[5].name}`
+          );
+
+          setWeight([
+            pokemon1.data.weight,
+            pokemon2.data.weight,
+            pokemon3.data.weight,
+            pokemon4.data.weight,
+            pokemon5.data.weight,
+            pokemon6.data.weight,
+          ]);
+
+          setType([
+            pokemon1.data.types,
+            pokemon2.data.types,
+            pokemon3.data.types,
+            pokemon4.data.types,
+            pokemon5.data.types,
+            pokemon6.data.types,
+          ]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchDetails();
+  }, [currentItems]);
+
   return (
     <>
       <PokemonDetails
         open={open}
         setOpen={setOpen}
         pokemonName={pokemonName}
+        pokemonDetail={pokemonDetail}
         loading={loading}
         setLoading={setLoading}
         error={error}
@@ -32,6 +89,7 @@ export default function ListDisplay({
         <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {currentItems.map((pokemon, index) => {
             const id = +pokemon.url.split('/').splice(6, 1).join();
+
             return (
               <li
                 onClick={() => displayDetails(pokemon)}
@@ -43,13 +101,31 @@ export default function ListDisplay({
                       <h3 className='text-gray-900 text-sm font-medium truncate'>
                         {pokemon.name}
                       </h3>
-                      {/* <span className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
-                    {person.role}
-                  </span> */}
+                      <button className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
+                        save
+                      </button>
                     </div>
-                    {/* <p className='mt-1 text-gray-500 text-sm truncate'>
-                  {person.title}
-                </p> */}
+
+                    {weight && currentItems && (
+                      <p className='mt-1 text-gray-500 text-sm truncate'>
+                        <span>Weight:</span> {weight[index]}
+                      </p>
+                    )}
+                    {/* {type && currentItems && (
+                      <p className='mt-1 text-gray-500 text-sm truncate'>
+                        <span>Types:</span>
+                        {console.log('log', type[index])}
+                      </p>
+                    )} */}
+
+                    {type && currentItems && (
+                      <p>
+                        Types:{' '}
+                        {type[index].map((t, i) => {
+                          return <span>{`${t.type.name} `}</span>;
+                        })}
+                      </p>
+                    )}
                   </div>
                   <LazyLoadImage
                     className='w-18 h-18 bg-gray-300 rounded-full flex-shrink-0'

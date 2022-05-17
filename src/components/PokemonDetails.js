@@ -12,32 +12,8 @@ export default function PokemonDetails({
   setLoading,
   error,
   setError,
+  pokemonDetail,
 }) {
-  const [pokemonDetail, setPokemonDetail] = useState(null);
-  useEffect(() => {
-    // - the amount of pokemon in existence
-    const fetchDetails = async () => {
-      //   setLoading(true);
-      try {
-        if (pokemonName) {
-          const data = await axios(
-            `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
-          );
-
-          setPokemonDetail(data.data);
-        }
-
-        // setError(false);
-        // setLoading(false);
-      } catch (err) {
-        console.log(err);
-        // setError(true);
-        // setLoading(false);
-      }
-    };
-    fetchDetails();
-  }, [pokemonName]);
-
   return (
     <>
       {pokemonDetail && (

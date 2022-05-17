@@ -11,12 +11,12 @@ export default function PaginatedItems({ itemsPerPage }) {
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
+  const [pokemonDetail, setPokemonDetail] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
-  const [pageReset, setPageReset] = useState();
-
-  const resetOption = 0;
+  const [pageReset, setPageReset] = useState(null);
+  const [pokemonName, setPokemonName] = useState({});
 
   useEffect(() => {
     // - the amount of pokemon in existence
@@ -42,6 +42,30 @@ export default function PaginatedItems({ itemsPerPage }) {
     fetchPokemon();
   }, []);
 
+  useEffect(() => {
+    // - the amount of pokemon in existence
+    const fetchDetails = async () => {
+      //   setLoading(true);
+      try {
+        if (pokemonName) {
+          const data = await axios(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
+          );
+
+          setPokemonDetail(data.data);
+        }
+
+        // setError(false);
+        // setLoading(false);
+      } catch (err) {
+        // console.log(err);
+        // setError(true);
+        // setLoading(false);
+      }
+    };
+    fetchDetails();
+  }, [pokemonName]);
+
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -54,7 +78,7 @@ export default function PaginatedItems({ itemsPerPage }) {
       if (items.length > 1) {
         // Fetch items from another resources.
         const endOffset = itemOffset + itemsPerPage;
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
         setCurrentItems(items.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(items.length / itemsPerPage));
       }
@@ -69,9 +93,9 @@ export default function PaginatedItems({ itemsPerPage }) {
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
@@ -99,6 +123,7 @@ export default function PaginatedItems({ itemsPerPage }) {
             setFilterOptions={setFilterOptions}
             listOfGenerations={listOfGenerations}
             setListOfGenerations={setListOfGenerations}
+            setPageReset={setPageReset}
           />
           {filterOptions && (
             <FilterOptionsList
@@ -118,6 +143,10 @@ export default function PaginatedItems({ itemsPerPage }) {
                 setLoading={setLoading}
                 error={error}
                 setError={setError}
+                pokemonDetail={pokemonDetail}
+                setPokemonDetail={setPokemonDetail}
+                pokemonName={pokemonName}
+                setPokemonName={setPokemonName}
               />
               <ReactPaginate
                 className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
@@ -129,7 +158,7 @@ export default function PaginatedItems({ itemsPerPage }) {
                 pageCount={pageCount}
                 previousLabel='< Previous'
                 renderOnZeroPageCount={null}
-                forcePage={resetOption}
+                forcePage={pageReset}
               />
             </>
           )}
