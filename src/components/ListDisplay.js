@@ -14,10 +14,13 @@ export default function ListDisplay({
   setPokemonName,
   pokemonDetail,
   setPokemonDetail,
+  savedPokemon,
+  setSavedPokemon,
+  savedPokemonHandler,
 }) {
-  const [open, setOpen] = useState(false);
   const [weight, setWeight] = useState();
   const [type, setType] = useState();
+  const [open, setOpen] = useState(false);
 
   const displayDetails = (pokemon) => {
     setPokemonName(pokemon);
@@ -25,6 +28,7 @@ export default function ListDisplay({
   };
 
   useEffect(() => {
+    console.log('running');
     const fetchDetails = async () => {
       try {
         if (currentItems) {
@@ -73,6 +77,9 @@ export default function ListDisplay({
     fetchDetails();
   }, [currentItems]);
 
+  console.log('weight', weight);
+  console.log(currentItems);
+
   return (
     <>
       <PokemonDetails
@@ -85,6 +92,7 @@ export default function ListDisplay({
         error={error}
         setError={setError}
       />
+
       {currentItems && (
         <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {currentItems.map((pokemon, index) => {
@@ -92,7 +100,6 @@ export default function ListDisplay({
 
             return (
               <li
-                onClick={() => displayDetails(pokemon)}
                 key={index + 1}
                 className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200'>
                 <div className='w-full flex items-center justify-between p-6 space-x-6'>
@@ -101,7 +108,13 @@ export default function ListDisplay({
                       <h3 className='text-gray-900 text-sm font-medium truncate'>
                         {pokemon.name}
                       </h3>
-                      <button className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
+                      <button
+                        onClick={() =>
+                          setSavedPokemon((prev) => {
+                            return prev.concat(pokemon);
+                          })
+                        }
+                        className='flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full'>
                         save
                       </button>
                     </div>
@@ -124,6 +137,7 @@ export default function ListDisplay({
                     )}
                   </div>
                   <LazyLoadImage
+                    onClick={() => displayDetails(pokemon)}
                     className='w-18 h-18 bg-gray-300 rounded-full flex-shrink-0'
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
                     alt={pokemon.name}

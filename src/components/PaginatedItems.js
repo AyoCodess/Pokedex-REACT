@@ -7,6 +7,8 @@ import SearchField from './SearchField';
 import FilterOptionsList from './FilterOptionsList';
 
 export default function PaginatedItems({
+  currentItems,
+  setCurrentItems,
   itemsPerPage,
   items,
   error,
@@ -15,13 +17,19 @@ export default function PaginatedItems({
   setLoading,
   setItems,
   defaultPokemonList,
+  setSavedPokemon,
+  savedPokemonHandler,
+  pokemonName,
+  setPokemonName,
+  pokemonDetail,
+  setPokemonDetail,
+  open,
+  setOpen,
 }) {
-  const [pokemonDetail, setPokemonDetail] = useState(null);
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
   const [pageReset, setPageReset] = useState(null);
-  const [pokemonName, setPokemonName] = useState({});
 
   useEffect(() => {
     // - the amount of pokemon in existence
@@ -48,7 +56,7 @@ export default function PaginatedItems({
   }, [pokemonName]);
 
   // We start with an empty list of items.
-  const [currentItems, setCurrentItems] = useState(null);
+
   const [pageCount, setPageCount] = useState(0);
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
@@ -120,6 +128,8 @@ export default function PaginatedItems({
             <>
               <ListDisplay
                 currentItems={currentItems}
+                open={open}
+                setOpen={setOpen}
                 loading={loading}
                 setLoading={setLoading}
                 error={error}
@@ -128,6 +138,8 @@ export default function PaginatedItems({
                 setPokemonDetail={setPokemonDetail}
                 pokemonName={pokemonName}
                 setPokemonName={setPokemonName}
+                setSavedPokemon={setSavedPokemon}
+                savedPokemonHandler={savedPokemonHandler}
               />
               <ReactPaginate
                 className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg

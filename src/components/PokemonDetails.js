@@ -14,6 +14,14 @@ export default function PokemonDetails({
   setError,
   pokemonDetail,
 }) {
+  if (open) {
+    console.log('im open');
+  } else {
+    console.log('im closed');
+  }
+
+  console.log({ pokemonDetail });
+
   return (
     <>
       {pokemonDetail && (
