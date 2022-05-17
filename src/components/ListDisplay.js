@@ -44,6 +44,8 @@ export default function ListDisplay({
 
     fetchDetails();
   }, [currentItems]);
+
+  console.log({ data });
   return (
     <>
       <PokemonDetails
@@ -57,7 +59,7 @@ export default function ListDisplay({
         setError={setError}
       />
       {currentItems && (
-        <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        <ul className='mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-4'>
           {currentItems.map((pokemon, index) => {
             const id = +pokemon.url.split('/').splice(6, 1).join();
 

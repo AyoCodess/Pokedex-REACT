@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BasicBtn from './BasicBtn';
 import BasicInputField from './BasicInputField';
+import DropDownMenu from './DropDownMenu';
 
 export default function SearchField({
   items,
@@ -14,6 +15,7 @@ export default function SearchField({
   listOfGenerations,
   setListOfGenerations,
   setPageReset,
+  setPokemonPerPage,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
@@ -53,7 +55,7 @@ export default function SearchField({
         }}
       />
 
-      <div className='flex gap-2 justify-center mt-4 '>
+      <div className='flex gap-2 justify-center mt-4 bg-red-50 p-2 '>
         <BasicBtn onClick={handleSearch} title={'Search'} />
         <BasicBtn onClick={handleReset} title={'Reset'} />
         <BasicBtn
@@ -61,6 +63,10 @@ export default function SearchField({
             filterOptions ? setFilterOptions(false) : setFilterOptions(true);
           }}
           title={' Filter Options'}
+        />
+        <DropDownMenu
+          options={[6, 15, 25, 50, 100]}
+          setEvent={setPokemonPerPage}
         />
       </div>
     </div>

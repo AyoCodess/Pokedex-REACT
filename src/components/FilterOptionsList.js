@@ -42,21 +42,21 @@ function FilterOptionsList({
   };
 
   return (
-    <div className='mt-4 w-2/3 mx-auto p-4 border-2 border-gray-200 shadow rounded-md'>
+    <div className='flex flex-col justify-center mt-4 w-2/3 mx-auto sm:w-96  '>
       <button
         onClick={() => {
           filterByGenerationList();
         }}
-        className='p-2 border border-red-100 shadow rounded-md hover:bg-red-100'>
+        className='p-2 border border-red-100  shadow rounded-md hover:bg-red-100'>
         Filter By Generation
       </button>
 
       {listOfGenerations && filterGenerationBtn && (
-        <ul className='flex gap-2 flex-col mt-3'>
+        <ul className='flex gap-2 flex-col mt-3 text-center'>
           {listOfGenerations.map((generation, i) => {
             return (
               <li
-                className='p-1 border-gray-200 border shadow rounded-md hover:bg-red-200'
+                className='p-1 border-gray-200 border shadow rounded-md hover:bg-red-200 '
                 key={generation.name}
                 onClick={(e) => {
                   setFilterGenerationBtn(false);

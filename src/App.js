@@ -16,6 +16,10 @@ function App() {
   const [savedPokemon, setSavedPokemon] = useState([]);
   const [pokemonName, setPokemonName] = useState({});
   const [pokemonDetail, setPokemonDetail] = useState(null);
+  const [pokemonPerPage, setPokemonPerPage] = useState(6);
+
+  const [savedList, setSavedList] = useState([]);
+  const [vsData, setVsData] = useState([]);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -71,15 +75,36 @@ function App() {
     fetchDetails();
   }, [pokemonName]);
 
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        if (savedList) {
+          let data = savedList.map((pokemon) => {
+            return `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
+          });
+
+          await Promise.all(data.map((url) => axios(url))).then((data) => {
+            setVsData(data);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchDetails();
+  }, [savedList]);
+
   return (
-    <>
+    <div className='flex flex-col h-screen '>
       <Header />
       <Routes>
         <Route
           path='/'
           element={
             <Home
-              itemsPerPage={6}
+              pokemonPerPage={pokemonPerPage}
+              setPokemonPerPage={setPokemonPerPage}
               items={items}
               error={error}
               setError={setError}
@@ -110,12 +135,22 @@ function App() {
         />
         <Route
           path='/vs'
-          element={<Vs defaultPokemonList={defaultPokemonList} />}
+          element={
+            <Vs
+              defaultPokemonList={defaultPokemonList}
+              savedList={savedList}
+              setSavedList={setSavedList}
+              vsData={vsData}
+              setVsData={setVsData}
+            />
+          }
         />
       </Routes>
 
-      <Footer />
-    </>
+      <div className='mt-auto'>
+        <Footer />
+      </div>
+    </div>
   );
 }
 

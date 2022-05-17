@@ -7,7 +7,7 @@ import SearchField from '../components/SearchField';
 import FilterOptionsList from '../components/FilterOptionsList';
 
 export default function Home({
-  itemsPerPage,
+  pokemonPerPage,
   items,
   error,
   setError,
@@ -20,6 +20,7 @@ export default function Home({
   setPokemonName,
   pokemonDetail,
   setPokemonDetail,
+  setPokemonPerPage,
 }) {
   const [filteredList, setFilteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
@@ -33,26 +34,28 @@ export default function Home({
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
 
+  console.log({ pokemonPerPage });
+
   useEffect(() => {
     if (items) {
       if (items.length > 1) {
         // Fetch items from another resources.
-        const endOffset = itemOffset + itemsPerPage;
+        const endOffset = itemOffset + pokemonPerPage;
         // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
         setCurrentItems(items.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(items.length / itemsPerPage));
+        setPageCount(Math.ceil(items.length / pokemonPerPage));
       }
 
       if (items.length === 1) {
         setCurrentItems(items);
-        setPageCount(Math.ceil(items.length / itemsPerPage));
+        setPageCount(Math.ceil(items.length / pokemonPerPage));
       }
     }
-  }, [itemOffset, itemsPerPage, items]);
+  }, [itemOffset, pokemonPerPage, items]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = (event.selected * pokemonPerPage) % items.length;
     // console.log(
     //   `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
@@ -84,6 +87,7 @@ export default function Home({
             listOfGenerations={listOfGenerations}
             setListOfGenerations={setListOfGenerations}
             setPageReset={setPageReset}
+            setPokemonPerPage={setPokemonPerPage}
           />
           {filterOptions && (
             <FilterOptionsList
@@ -110,7 +114,7 @@ export default function Home({
                 setSavedPokemon={setSavedPokemon}
               />
               <ReactPaginate
-                className=' pagination flex flex-wrap justify-center gap-2 p-2 border-2 w-[90%]  md:w-max rounded-md border-gray-200 mt-4 mx-auto text-sm md:text-lg
+                className=' pagination flex flex-wrap justify-center gap-3 p-3 border-2 mx-2 md:w-max rounded-md border-gray-200 mt-4 sm:mx-auto text-sm md:text-lg
             '
                 breakLabel='...'
                 nextLabel='Next >'

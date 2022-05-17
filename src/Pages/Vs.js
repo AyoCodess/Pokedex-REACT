@@ -5,10 +5,8 @@ import BasicInputField from '../components/BasicInputField';
 import VsContainer from '../components/VsContainer';
 import axios from 'axios';
 
-function Vs({ defaultPokemonList }) {
+function Vs({ defaultPokemonList, savedList, setSavedList, vsData }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState([]);
-  const [savedList, setSavedList] = useState([]);
-  const [data, setData] = useState([]);
 
   const handleSearch = (pokemonName) => {
     defaultPokemonList.filter((pokemon) => {
@@ -31,25 +29,6 @@ function Vs({ defaultPokemonList }) {
   };
 
   console.log({ savedList });
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        if (savedList) {
-          let data = savedList.map((pokemon) => {
-            return `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
-          });
-
-          await Promise.all(data.map((url) => axios(url))).then((data) => {
-            setData(data);
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchDetails();
-  }, [savedList]);
 
   return (
     <>
@@ -79,11 +58,11 @@ function Vs({ defaultPokemonList }) {
         <BasicBtn
           title={'Add'}
           onClick={() => handleSearch(searchedForPokemon)}
-          custom={'h-10 mt-auto'}
+          custom={'h-10 mt-auto '}
         />
       </div>
-      {data.length >= 1 && (
-        <VsContainer data={data} setSavedList={setSavedList} />
+      {vsData.length >= 1 && (
+        <VsContainer data={vsData} setSavedList={setSavedList} />
       )}
     </>
   );
