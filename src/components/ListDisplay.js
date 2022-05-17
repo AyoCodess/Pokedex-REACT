@@ -89,21 +89,24 @@ export default function ListDisplay({
                       </button>
                     </div>
 
-                    {data && (
-                      <p className='mt-1 text-gray-500 text-sm truncate'>
-                        <span>Weight:</span> {data[index].data.weight} lb
-                      </p>
-                    )}
-                    {data && (
-                      <p className='mt-1  text-sm truncate'>
-                        Types:&nbsp;
-                        {data[index].data.types.map((t, i) => {
-                          return (
-                            <span key={t.type.name}>{`${t.type.name} `}</span>
-                          );
-                        })}
-                      </p>
-                    )}
+                    <div>
+                      {data && data[index]?.data && (
+                        <p className='mt-1 text-gray-500 text-sm truncate'>
+                          <span>Weight:</span> {data[index].data.weight} lb
+                        </p>
+                      )}
+                      {data && data[index]?.data && (
+                        <p className='mt-1  text-sm truncate'>
+                          Types:&nbsp;
+                          {data[index].data.types.map((t, i) => {
+                            console.log(data[index]);
+                            return (
+                              <span key={t.type.name}>{`${t.type.name} `}</span>
+                            );
+                          })}
+                        </p>
+                      )}
+                    </div>
                   </div>
                   <LazyLoadImage
                     onClick={() => displayDetails(pokemon)}
