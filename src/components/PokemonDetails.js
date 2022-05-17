@@ -93,7 +93,17 @@ export default function PokemonDetails({
                                 <hr className='my-3' />
                               </div>
                               <p>Base Stats</p>
-                              <details>{}</details>
+                              <details>
+                                {pokemonDetail.stats.map((stat) => {
+                                  console.log(stat.base_stat);
+                                  return (
+                                    <div className='flex gap-2 justify-center'>
+                                      <p>{`${stat.stat.name}`}</p>
+                                      <p className='text-indigo-600'>{`${stat.base_stat}`}</p>
+                                    </div>
+                                  );
+                                })}
+                              </details>
                             </details>
                           </div>
                         </div>
