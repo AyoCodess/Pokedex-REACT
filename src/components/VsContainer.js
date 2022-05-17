@@ -3,14 +3,14 @@
 export default function VsContainer({ data, setSavedList }) {
   return (
     <div className='py-12'>
-      <ul className='flex flex-wrap justify-center gap-4 '>
+      <ul className='flex flex-wrap justify-center gap-4  '>
         {data.map((pokemon, i) => {
           console.log(pokemon.data);
           //   console.log(pokemon.data.sprites.front_default);
           return (
             <li
               key={i}
-              className='border-gray-200 border shadow rounded-md p-4'>
+              className='border-gray-200 border shadow rounded-md p-4 '>
               <div className='space-y-4'>
                 <div className='flex w-max '>
                   <img
@@ -52,7 +52,7 @@ export default function VsContainer({ data, setSavedList }) {
                     <p>
                       Weight:{' '}
                       <span className='text-indigo-600'>
-                        {pokemon.data.weight}
+                        {pokemon.data.weight} lb
                       </span>
                     </p>
                     <p>
@@ -85,7 +85,6 @@ export default function VsContainer({ data, setSavedList }) {
                       </span>{' '}
                       <span className='text-indigo-600'>
                         {pokemon.data.stats.map((stat) => {
-                          console.log(stat.stat.name);
                           return (
                             <p className='block'>
                               <span className='text-black'>

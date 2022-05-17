@@ -23,7 +23,7 @@ function BasicInputField({
             type='text'
             name={inputName}
             id='pokemon'
-            className='shadow-sm w-full mx-auto p-2 focus:ring-red-500 focus:border-red-500 block sm:text-sm border-gray-300 rounded-md'
+            className='shadow-sm w-full mx-auto p-2 focus:ring-red-500 focus:border-red-500 block sm:text-sm border border-gray-300 rounded-md'
             placeholder={placeholder}
             onChange={onChange}
           />

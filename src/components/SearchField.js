@@ -43,20 +43,22 @@ export default function SearchField({
   };
   return (
     <div className='mt-4 w-full'>
-      <BasicInputField
-        labelTitle={'Search Pokemon'}
-        inputName={'pokemon'}
-        placeholder={'Charizard'}
-        onChange={(e) => {
-          setSearchedForPokemon(e.target.value);
-          if (searchedForPokemon) {
-            setItems(defaultPokemonList);
-          }
-        }}
-      />
+      <div className='flex gap-2 justify-center mt-4'>
+        <BasicInputField
+          labelTitle={'Search Pokemon'}
+          inputName={'pokemon'}
+          placeholder={'Charizard'}
+          onChange={(e) => {
+            setSearchedForPokemon(e.target.value);
+            if (searchedForPokemon) {
+              setItems(defaultPokemonList);
+            }
+          }}
+        />
+        <BasicBtn onClick={handleSearch} title={'Search'} custom={'mt-auto'} />
+      </div>
 
       <div className='flex gap-2 justify-center mt-4 bg-red-50 p-2 '>
-        <BasicBtn onClick={handleSearch} title={'Search'} />
         <BasicBtn onClick={handleReset} title={'Reset'} />
         <BasicBtn
           onClick={() => {

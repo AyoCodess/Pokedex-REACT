@@ -81,7 +81,6 @@ export default function PokemonDetails({
                                 <details>
                                   <p className='grid grid-cols-2 '>
                                     {pokemonDetail.moves.map((move) => {
-                                      console.log(move.move.name);
                                       return (
                                         <span className=''>
                                           {move.move.name}
@@ -95,7 +94,6 @@ export default function PokemonDetails({
                               <p>Base Stats</p>
                               <details>
                                 {pokemonDetail.stats.map((stat) => {
-                                  console.log(stat.base_stat);
                                   return (
                                     <div className='flex gap-2 justify-center'>
                                       <p>{`${stat.stat.name}`}</p>

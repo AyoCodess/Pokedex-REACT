@@ -34,8 +34,6 @@ export default function Home({
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
 
-  console.log({ pokemonPerPage });
-
   useEffect(() => {
     if (items) {
       if (items.length > 1) {
