@@ -96,8 +96,6 @@ function App() {
     fetchDetails();
   }, [savedList]);
 
-  console.log({ database });
-
   return (
     <div className='flex flex-col h-screen '>
       <Header />

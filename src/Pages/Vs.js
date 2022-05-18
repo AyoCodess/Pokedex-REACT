@@ -38,7 +38,7 @@ function Vs({ defaultPokemonList, setSavedList, vsData }) {
           compare your favorite pokemon based on their base stats!
         </p>
       </div>
-      <div className='flex mx-auto justify-center w-2/3 '>
+      <div className='flex mx-auto justify-center w-2/3 gap-2'>
         <BasicInputField
           labelTitle={'Search Pokemon and compare!'}
           inputName={'vs'}
