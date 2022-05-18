@@ -8,9 +8,7 @@ export default function PokemonDetails({
   pokemonName,
   pokemonDetail,
 }) {
-  if (pokemonDetail) {
-    console.log(pokemonDetail);
-  }
+
 
   return (
     <>

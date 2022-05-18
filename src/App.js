@@ -9,19 +9,34 @@ import Vs from './Pages/Vs';
 import axios from 'axios';
 
 function App() {
+  // - data fetching states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
+
+  // - after data is fetched, this state saves that list as state
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
+
+  // - when we typically fetch to find a pokemon, we use this state, in secondary fetch to get the details of that pokemon
   const [pokemonName, setPokemonName] = useState({});
+
+  // - stores selected pokemon information
   const [pokemonDetail, setPokemonDetail] = useState(null);
+
+  // - sets the amount of pokemon per page
   const [pokemonPerPage, setPokemonPerPage] = useState(6);
 
+  // - saved added pokemon, VS page
   const [savedList, setSavedList] = useState([]);
+
+  // - fetches pokemon data for VS page, for now we make an independent fetch request
   const [vsData, setVsData] = useState([]);
 
+  // - used to store saved pokemon data into favorites
   const [database, setDatabase] = useState([]);
 
+  // - fetch pokemon data and sets the apps initial state and renders a list.
+ 
   useEffect(() => {
     const fetchPokemon = async () => {
       // - the amount of pokemon in existence
@@ -53,9 +68,7 @@ function App() {
   }, [defaultPokemonList]);
 
   useEffect(() => {
-    // - the amount of pokemon in existence
     const fetchDetails = async () => {
-      //   setLoading(true);
       try {
         if (pokemonName) {
           const data = await axios(
@@ -64,14 +77,7 @@ function App() {
 
           setPokemonDetail(data.data);
         }
-
-        // setError(false);
-        // setLoading(false);
-      } catch (err) {
-        // console.log(err);
-        // setError(true);
-        // setLoading(false);
-      }
+      } catch (err) {}
     };
     fetchDetails();
   }, [pokemonName]);

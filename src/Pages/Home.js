@@ -21,15 +21,19 @@ export default function Home({
   setPokemonPerPage,
   setDatabase,
 }) {
+  // - filter option states
   const [filteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
+
   const [pageReset, setPageReset] = useState(null);
 
+  // - pagination states
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
+  // - Pagination code
   useEffect(() => {
     if (items) {
       if (items.length > 1) {

@@ -9,11 +9,11 @@ function BasicInputField({
   hideLabel,
 }) {
   return (
-    <div className={`${custom}`}>
+    <div className={`${custom} `}>
       {!hideLabel && (
         <label
           htmlFor='pokemon'
-          className='block w-2/3 mx-auto text-sm text-center font-medium text-gray-700'>
+          className='block  text-center w-full font-medium text-gray-700'>
           {labelTitle}
         </label>
       )}

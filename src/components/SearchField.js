@@ -36,10 +36,10 @@ export default function SearchField({
     }
   };
   return (
-    <div className='mt-4 w-full'>
+    <div className=' w-full '>
       <div className='flex gap-2 justify-center mt-4'>
         <BasicInputField
-          labelTitle={'Search Pokemon'}
+          labelTitle={'Search For a Pokemon'}
           inputName={'pokemon'}
           placeholder={'Charizard'}
           onChange={(e) => {
