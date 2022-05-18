@@ -12,6 +12,7 @@ export default function SearchField({
   listOfGenerations,
   setPageReset,
   setPokemonPerPage,
+  pokemonPerPage,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
@@ -62,6 +63,7 @@ export default function SearchField({
         <DropDownMenu
           options={[6, 15, 25, 50, 100]}
           setEvent={setPokemonPerPage}
+          perPage={pokemonPerPage}
         />
       </div>
     </div>

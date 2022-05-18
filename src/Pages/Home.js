@@ -73,6 +73,7 @@ export default function Home({
             listOfGenerations={listOfGenerations}
             setListOfGenerations={setListOfGenerations}
             setPageReset={setPageReset}
+            pokemonPerPage={pokemonPerPage}
             setPokemonPerPage={setPokemonPerPage}
           />
 
