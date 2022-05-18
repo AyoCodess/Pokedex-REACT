@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import FavoriteDisplay from '../components/FavoriteDisplay';
 
 function Favorites({
-  savedPokemon,
-  setSavedPokemon,
   pokemonName,
   setPokemonName,
   pokemonDetail,
   setPokemonDetail,
+  database,
+  setDatabase,
 }) {
   return (
     <>
@@ -19,12 +19,12 @@ function Favorites({
         </Link>
       </div>
       <FavoriteDisplay
-        savedPokemon={savedPokemon}
-        setSavedPokemon={setSavedPokemon}
         pokemonName={pokemonName}
         setPokemonName={setPokemonName}
         pokemonDetail={pokemonDetail}
         setPokemonDetail={setPokemonDetail}
+        database={database}
+        setDatabase={setDatabase}
       />
     </>
   );

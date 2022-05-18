@@ -6,14 +6,10 @@ import DropDownMenu from './DropDownMenu';
 export default function SearchField({
   items,
   setItems,
-  filteredList,
-  setFilteredList,
   defaultPokemonList,
   filterOptions,
   setFilterOptions,
-  generation,
   listOfGenerations,
-  setListOfGenerations,
   setPageReset,
   setPokemonPerPage,
 }) {
@@ -30,15 +26,12 @@ export default function SearchField({
   };
 
   const handleReset = () => {
-    if (items.length === 1) {
-      setItems(defaultPokemonList);
-      setPageReset(0);
-    }
+    setPageReset(0);
+    setPokemonPerPage(6);
+    setItems(defaultPokemonList);
 
     if (listOfGenerations) {
-      setItems(defaultPokemonList);
       setFilterOptions(false);
-      setPageReset(0);
     }
   };
   return (

@@ -3,7 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import PokemonDetails from './PokemonDetails';
 import axios from 'axios';
 
-export default function ListDisplay({
+function ListDisplay({
   currentItems,
   loading,
   setLoading,
@@ -12,8 +12,7 @@ export default function ListDisplay({
   pokemonName,
   setPokemonName,
   pokemonDetail,
-  setPokemonDetail,
-  setSavedPokemon,
+  setDatabase,
 }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -44,7 +43,6 @@ export default function ListDisplay({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItems]);
 
-  console.log({ data });
   return (
     <>
       <PokemonDetails
@@ -74,11 +72,16 @@ export default function ListDisplay({
                       </h3>
                       <button
                         onClick={() =>
-                          setSavedPokemon((prev) => {
+                          setDatabase((prev) => {
                             if (prev.includes(pokemon)) {
                               console.log('pokemon already saved');
                               return prev;
                             } else {
+                              // - updating local storage
+                              localStorage.setItem(
+                                'database',
+                                JSON.stringify(prev.concat(pokemon))
+                              );
                               return prev.concat(pokemon);
                             }
                           })
@@ -98,7 +101,6 @@ export default function ListDisplay({
                         <p className='mt-1  text-sm truncate'>
                           Types:&nbsp;
                           {data[index].data.types.map((t, i) => {
-                            console.log(data[index]);
                             return (
                               <span key={t.type.name}>{`${t.type.name} `}</span>
                             );
@@ -125,3 +127,5 @@ export default function ListDisplay({
     </>
   );
 }
+
+export default ListDisplay;

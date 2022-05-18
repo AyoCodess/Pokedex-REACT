@@ -1,12 +1,10 @@
-/* This VsContainer {data}requires Tailwind CSS v2.0+ */
+import React from 'react';
 
-export default function VsContainer({ data, setSavedList }) {
+function VsContainer({ data, setSavedList }) {
   return (
     <div className='py-12'>
       <ul className='flex flex-wrap justify-center gap-4  '>
         {data.map((pokemon, i) => {
-          console.log(pokemon.data);
-          //   console.log(pokemon.data.sprites.front_default);
           return (
             <li
               key={i}
@@ -106,3 +104,5 @@ export default function VsContainer({ data, setSavedList }) {
     </div>
   );
 }
+
+export default VsContainer;

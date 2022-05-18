@@ -6,10 +6,6 @@ export default function PokemonDetails({
   open,
   setOpen,
   pokemonName,
-  loading,
-  setLoading,
-  error,
-  setError,
   pokemonDetail,
 }) {
   if (pokemonDetail) {

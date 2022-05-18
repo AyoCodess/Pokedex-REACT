@@ -1,4 +1,6 @@
-export default function DropDownMenu({ options, setEvent }) {
+import React from 'react';
+
+function DropDownMenu({ options, setEvent }) {
   return (
     <div>
       <label htmlFor='page' className='block text-sm font-medium text-gray-700'>
@@ -6,8 +8,6 @@ export default function DropDownMenu({ options, setEvent }) {
       </label>
       <select
         onChange={(e) => {
-          console.log(+e.target.value);
-
           setEvent(+e.target.value);
         }}
         name='page'
@@ -22,3 +22,5 @@ export default function DropDownMenu({ options, setEvent }) {
     </div>
   );
 }
+
+export default DropDownMenu;

@@ -3,27 +3,38 @@ import axios from 'axios';
 import PokemonDetails from './PokemonDetails';
 
 function FavoriteDisplay({
-  savedPokemon,
-  setSavedPokemon,
   pokemonName,
   setPokemonName,
   pokemonDetail,
-  setPokemonDetail,
+  database,
+  setDatabase,
 }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState();
+
+  // - local storage check
+
+  const getDatabase = localStorage.getItem('database');
+  const parsedDatabase = JSON.parse(getDatabase);
+
+  useEffect(() => {
+    if (parsedDatabase) {
+      setDatabase(parsedDatabase);
+    } else {
+      return;
+    }
+  }, []);
 
   const displayDetails = (pokemon) => {
     setPokemonName(pokemon);
     setOpen(true);
   };
 
-  console.log({ savedPokemon });
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        if (savedPokemon) {
-          let newList = savedPokemon.map((pokemon) => {
+        if (database) {
+          let newList = database.map((pokemon) => {
             return `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
           });
 
@@ -37,7 +48,16 @@ function FavoriteDisplay({
     };
 
     fetchDetails();
-  }, [savedPokemon]);
+  }, [database]);
+
+  useEffect(() => {
+    if (database) {
+      // - updating local storage
+      localStorage.setItem('database', JSON.stringify(database));
+    }
+  }, [database]);
+
+  console.log({ database });
 
   return (
     <>
@@ -48,11 +68,11 @@ function FavoriteDisplay({
         pokemonDetail={pokemonDetail}
       />
       <div className='mt-4'>
-        {savedPokemon && (
+        {database && (
           <ul className='flex flex-wrap gap-4 justify-center '>
-            {savedPokemon.map((pokemon, index) => {
+            {database.map((pokemon, index) => {
+              console.log('in');
               const id = +pokemon.url.split('/').splice(6, 1).join();
-
               return (
                 <li
                   key={index + 1}
@@ -64,28 +84,28 @@ function FavoriteDisplay({
                           {pokemon.name}
                         </h3>
                         <button
-                          onClick={() =>
-                            setSavedPokemon((prev) => {
-                              return prev.filter((pokemon, i) => {
+                          onClick={() => {
+                            setDatabase((prev) => {
+                              return prev.filter((pokemon) => {
                                 return pokemon.name !== prev[index].name;
                               });
-                            })
-                          }
+                            });
+                          }}
                           className='flex-shrink-0 inline-block px-2 py-0.5 text-red-800 text-xs font-medium bg-red-100 rounded-full'>
                           delete
                         </button>
                       </div>
 
-                      {data && (
+                      {data && data[index]?.data && (
                         <p className='mt-1 text-gray-500 text-sm truncate'>
                           <span>Weight:</span> {data[index].data.weight} lb
                         </p>
                       )}
 
-                      {data && (
+                      {data && data[index]?.data && (
                         <p className='mt-1  text-sm truncate'>
                           Types:&nbsp;
-                          {data[index].data.types.map((t, i) => {
+                          {data[index].data.types.map((t) => {
                             return (
                               <span key={t.type.name}>{`${t.type.name} `}</span>
                             );

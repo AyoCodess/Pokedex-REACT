@@ -13,13 +13,14 @@ function App() {
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
-  const [savedPokemon, setSavedPokemon] = useState([]);
   const [pokemonName, setPokemonName] = useState({});
   const [pokemonDetail, setPokemonDetail] = useState(null);
   const [pokemonPerPage, setPokemonPerPage] = useState(6);
 
   const [savedList, setSavedList] = useState([]);
   const [vsData, setVsData] = useState([]);
+
+  const [database, setDatabase] = useState([]);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -95,6 +96,8 @@ function App() {
     fetchDetails();
   }, [savedList]);
 
+  console.log({ database });
+
   return (
     <div className='flex flex-col h-screen '>
       <Header />
@@ -112,11 +115,11 @@ function App() {
               setLoading={setLoading}
               setItems={setItems}
               defaultPokemonList={defaultPokemonList}
-              setSavedPokemon={setSavedPokemon}
               pokemonName={pokemonName}
               setPokemonName={setPokemonName}
               pokemonDetail={pokemonDetail}
               setPokemonDetail={setPokemonDetail}
+              setDatabase={setDatabase}
             />
           }
         />
@@ -124,12 +127,12 @@ function App() {
           path='/favorites'
           element={
             <Favorites
-              savedPokemon={savedPokemon}
-              setSavedPokemon={setSavedPokemon}
               pokemonName={pokemonName}
               setPokemonName={setPokemonName}
               pokemonDetail={pokemonDetail}
               setPokemonDetail={setPokemonDetail}
+              database={database}
+              setDatabase={setDatabase}
             />
           }
         />

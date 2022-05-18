@@ -4,7 +4,7 @@ import BasicBtn from '../components/BasicBtn';
 import BasicInputField from '../components/BasicInputField';
 import VsContainer from '../components/VsContainer';
 
-function Vs({ defaultPokemonList, savedList, setSavedList, vsData }) {
+function Vs({ defaultPokemonList, setSavedList, vsData }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState([]);
 
   const handleSearch = (pokemonName) => {

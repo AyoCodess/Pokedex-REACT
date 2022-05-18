@@ -37,7 +37,6 @@ function FilterOptionsList({
       );
 
       setItems(data.data.pokemon_species);
-      console.log(items);
     } catch (err) {
       console.log(err);
     }
