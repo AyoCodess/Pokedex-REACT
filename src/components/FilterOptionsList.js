@@ -52,7 +52,7 @@ function FilterOptionsList({
           className='p-2 border border-red-100  shadow rounded-md hover:bg-red-100'>
           Filter By Generation
         </button>
-        <p className='border border-red-500 p-2 shadow rounded-md'>
+        <p className='border border-red-500 p-2 shadow rounded-md text-center'>
           {generationNumber}
         </p>
       </div>
