@@ -4,23 +4,35 @@ import BasicBtn from '../components/BasicBtn';
 import BasicInputField from '../components/BasicInputField';
 import VsContainer from '../components/VsContainer';
 
-function Vs({ defaultPokemonList, setSavedList, vsData }) {
+function Vs({
+  defaultPokemonList,
+  setSavedList,
+  vsData,
+  noFoundPokemon,
+  setNoFoundPokemon,
+}) {
   const [searchedForPokemon, setSearchedForPokemon] = useState([]);
 
   const handleSearch = (pokemonName) => {
-    defaultPokemonList.filter((pokemon) => {
-      if (pokemonName === pokemon.name) {
-        return setSavedList((prev) => {
-          if (prev.includes(pokemon)) {
-            console.log('pokemon already saved');
-            return prev;
-          } else {
-            return [pokemon, ...prev];
-          }
-        });
-      }
-      return pokemon;
-    });
+    // - triggers error toast if pokemon is not found
+    let found = defaultPokemonList.find(
+      (pokemon) => pokemon.name === pokemonName
+    );
+
+    if (found === undefined) {
+      setNoFoundPokemon(true);
+    }
+    if (found) {
+      return setSavedList((prev) => {
+        if (prev.includes(found)) {
+          console.log('pokemon already saved'); // - could implement another toast for this branch
+          return prev;
+        } else {
+          setNoFoundPokemon(false);
+          return [found, ...prev];
+        }
+      });
+    }
   };
 
   return (
@@ -45,7 +57,7 @@ function Vs({ defaultPokemonList, setSavedList, vsData }) {
           placeholder={'Pikachu'}
           hideLabel={true}
           onChange={(e) => {
-            setSearchedForPokemon(e.target.value);
+            setSearchedForPokemon(e.target.value.toLowerCase());
           }}
         />
         <BasicBtn

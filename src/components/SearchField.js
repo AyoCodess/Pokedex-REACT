@@ -13,24 +13,28 @@ export default function SearchField({
   setPageReset,
   setPokemonPerPage,
   pokemonPerPage,
+  setNoPokemonFound,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
   const handleSearch = () => {
-    items.filter((pokemon) => {
-      if (pokemon.name === searchedForPokemon) {
-        return setItems([pokemon]);
-      } else {
-        return items;
-      }
-    });
+    // - triggers error toast if pokemon is not found
+    let found = items.find((pokemon) => pokemon.name === searchedForPokemon);
+    if (found) {
+      setNoPokemonFound(false);
+      return setItems([found]);
+    } else {
+      setNoPokemonFound(true);
+      setSearchedForPokemon('');
+      return items;
+    }
   };
 
   const handleReset = () => {
     setPageReset(0);
     setPokemonPerPage(6);
+    setNoPokemonFound(false);
     setItems(defaultPokemonList);
-
     if (listOfGenerations) {
       setFilterOptions(false);
     }
@@ -43,10 +47,7 @@ export default function SearchField({
           inputName={'pokemon'}
           placeholder={'Charizard'}
           onChange={(e) => {
-            setSearchedForPokemon(e.target.value);
-            if (searchedForPokemon) {
-              setItems(defaultPokemonList);
-            }
+            setSearchedForPokemon(e.target.value.toLowerCase());
           }}
         />
         <BasicBtn onClick={handleSearch} title={'Search'} custom={'mt-auto'} />

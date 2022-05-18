@@ -1,7 +1,6 @@
 import React from 'react';
 
 function DropDownMenu({ options, setEvent, perPage }) {
-  console.log({ perPage });
   return (
     <div>
       <label htmlFor='page' className='block text-sm font-medium text-gray-700'>

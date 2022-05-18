@@ -20,6 +20,8 @@ export default function Home({
   setPokemonDetail,
   setPokemonPerPage,
   setDatabase,
+  setNoPokemonFound,
+  noPokemonFound,
 }) {
   // - filter option states
   const [filteredList] = useState(null);
@@ -79,6 +81,7 @@ export default function Home({
             setPageReset={setPageReset}
             pokemonPerPage={pokemonPerPage}
             setPokemonPerPage={setPokemonPerPage}
+            setNoPokemonFound={setNoPokemonFound}
           />
 
           {filterOptions && (

@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Favorites from './Pages/Favorites';
 import Vs from './Pages/Vs';
 import axios from 'axios';
+import Toast from './components/Toast';
 
 function App() {
   // - data fetching states
@@ -19,6 +20,9 @@ function App() {
 
   // - when we typically fetch to find a pokemon, we use this state, in secondary fetch to get the details of that pokemon
   const [pokemonName, setPokemonName] = useState({});
+
+  // - searchfield validation
+  const [noPokemonFound, setNoPokemonFound] = useState(false);
 
   // - stores selected pokemon information
   const [pokemonDetail, setPokemonDetail] = useState(null);
@@ -36,7 +40,7 @@ function App() {
   const [database, setDatabase] = useState([]);
 
   // - fetch pokemon data and sets the apps initial state and renders a list.
- 
+
   useEffect(() => {
     const fetchPokemon = async () => {
       // - the amount of pokemon in existence
@@ -102,9 +106,23 @@ function App() {
     fetchDetails();
   }, [savedList]);
 
+  // - removes search field error toast.
+  useEffect(() => {
+    if (noPokemonFound) {
+      setTimeout(() => {
+        setNoPokemonFound(false);
+      }, 5000);
+    }
+  }, [noPokemonFound]);
+
   return (
     <div className='flex flex-col h-screen '>
       <Header />
+      <Toast
+        noPokemonFound={noPokemonFound}
+        setNoPokemonFound={setNoPokemonFound}
+      />
+
       <Routes>
         <Route
           path='/'
@@ -124,6 +142,8 @@ function App() {
               pokemonDetail={pokemonDetail}
               setPokemonDetail={setPokemonDetail}
               setDatabase={setDatabase}
+              noPokemonFound={noPokemonFound}
+              setNoPokemonFound={setNoPokemonFound}
             />
           }
         />
@@ -149,6 +169,8 @@ function App() {
               setSavedList={setSavedList}
               vsData={vsData}
               setVsData={setVsData}
+              noFoundPokemon={noPokemonFound}
+              setNoFoundPokemon={setNoPokemonFound}
             />
           }
         />

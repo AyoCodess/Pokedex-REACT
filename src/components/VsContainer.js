@@ -7,7 +7,7 @@ function VsContainer({ data, setSavedList }) {
         {data.map((pokemon, i) => {
           return (
             <li
-              key={i}
+              key={pokemon.data.name}
               className='border-gray-200 border shadow rounded-md p-4 '>
               <div className='space-y-4'>
                 <div className='flex w-max '>
@@ -26,7 +26,6 @@ function VsContainer({ data, setSavedList }) {
                   onClick={() =>
                     setSavedList((prev) => {
                       return prev.filter((pokemon) => {
-                        console.log(pokemon.name, prev[i].name);
                         return pokemon.name !== prev[i].name;
                       });
                     })
