@@ -10,10 +10,13 @@ export default function SearchField({
   filterOptions,
   setFilterOptions,
   listOfGenerations,
+  pageReset,
   setPageReset,
   setPokemonPerPage,
   pokemonPerPage,
   setNoPokemonFound,
+  hasPageReset,
+  setHasPageReset,
 }) {
   const [searchedForPokemon, setSearchedForPokemon] = useState();
 
@@ -29,8 +32,13 @@ export default function SearchField({
       return items;
     }
   };
-
+  console.log({ hasPageReset });
   const handleReset = () => {
+    // - displays toast if page has already been reset
+    if (pageReset === 0) {
+      setHasPageReset(true);
+    }
+
     setPageReset(0);
     setPokemonPerPage(6);
     setNoPokemonFound(false);

@@ -39,7 +39,8 @@ function App() {
   // - used to store saved pokemon data into favorites
   const [database, setDatabase] = useState([]);
 
-  // - fetch pokemon data and sets the apps initial state and renders a list.
+  // - fetch pokemon data and sets the apps initial state and renders a list.);
+  const [hasPageReset, setHasPageReset] = useState(false);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -119,8 +120,16 @@ function App() {
     <div className='flex flex-col h-screen '>
       <Header />
       <Toast
-        noPokemonFound={noPokemonFound}
-        setNoPokemonFound={setNoPokemonFound}
+        show={noPokemonFound}
+        setShow={setNoPokemonFound}
+        title={'No Pokemon Found'}
+        description={'Please try again'}
+      />
+      <Toast
+        show={hasPageReset}
+        setShow={setHasPageReset}
+        title={'Page has already been reset'}
+        description={'Please search for pokemon or navigate to page 1'}
       />
 
       <Routes>
@@ -144,6 +153,8 @@ function App() {
               setDatabase={setDatabase}
               noPokemonFound={noPokemonFound}
               setNoPokemonFound={setNoPokemonFound}
+              hasPageReset={hasPageReset}
+              setHasPageReset={setHasPageReset}
             />
           }
         />

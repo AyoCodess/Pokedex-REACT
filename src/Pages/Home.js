@@ -22,12 +22,15 @@ export default function Home({
   setDatabase,
   setNoPokemonFound,
   noPokemonFound,
+  hasPageReset,
+  setHasPageReset,
 }) {
   // - filter option states
   const [filteredList] = useState(null);
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
 
+  // - when use selects pages this state updates, called when user hits the reset button
   const [pageReset, setPageReset] = useState(null);
 
   // - pagination states
@@ -82,6 +85,9 @@ export default function Home({
             pokemonPerPage={pokemonPerPage}
             setPokemonPerPage={setPokemonPerPage}
             setNoPokemonFound={setNoPokemonFound}
+            pageReset={pageReset}
+            hasPageReset={hasPageReset}
+            setHasPageReset={setHasPageReset}
           />
 
           {filterOptions && (
