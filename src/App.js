@@ -109,12 +109,13 @@ function App() {
 
   // - removes search field error toast.
   useEffect(() => {
-    if (noPokemonFound) {
+    if (noPokemonFound || hasPageReset) {
       setTimeout(() => {
         setNoPokemonFound(false);
+        setHasPageReset(false);
       }, 5000);
     }
-  }, [noPokemonFound]);
+  }, [noPokemonFound, hasPageReset]);
 
   return (
     <div className='flex flex-col h-screen '>
