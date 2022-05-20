@@ -40,7 +40,7 @@ function App() {
   const [database, setDatabase] = useState([]);
 
   // - fetch pokemon data and sets the apps initial state and renders a list.);
-  const [hasPageReset, setHasPageReset] = useState(true);
+  const [hasPageReset, setHasPageReset] = useState(false);
 
   useEffect(() => {
     const fetchPokemon = async () => {
