@@ -71,11 +71,10 @@ function FavoriteDisplay({
         {database && (
           <ul className='flex flex-wrap gap-4 justify-center '>
             {database.map((pokemon, index) => {
-              console.log('in');
               const id = +pokemon.url.split('/').splice(6, 1).join();
               return (
                 <li
-                  key={index + 1}
+                  key={pokemon.name}
                   className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 w-96 mx-4'>
                   <div className='w-full flex items-center justify-between p-6 space-x-6'>
                     <div className='flex-1 truncate'>

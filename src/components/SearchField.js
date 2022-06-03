@@ -32,7 +32,6 @@ export default function SearchField({
       return items;
     }
   };
-  console.log({ hasPageReset });
   const handleReset = () => {
     // - displays toast if page has already been reset
     if (pageReset === 0 && !filterOptions) {

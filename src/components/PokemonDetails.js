@@ -8,8 +8,6 @@ export default function PokemonDetails({
   pokemonName,
   pokemonDetail,
 }) {
-
-
   return (
     <>
       {pokemonDetail && (
@@ -72,11 +70,9 @@ export default function PokemonDetails({
                                 <span>All Moves: </span>
                                 <details>
                                   <p className='grid grid-cols-2 '>
-                                    {pokemonDetail.moves.map((move) => {
+                                    {pokemonDetail.moves.map((move, i) => {
                                       return (
-                                        <span className=''>
-                                          {move.move.name}
-                                        </span>
+                                        <span key={i}>{move.move.name}</span>
                                       );
                                     })}
                                   </p>
@@ -85,9 +81,11 @@ export default function PokemonDetails({
                               </div>
                               <p>Base Stats</p>
                               <details>
-                                {pokemonDetail.stats.map((stat) => {
+                                {pokemonDetail.stats.map((stat, i) => {
                                   return (
-                                    <div className='flex gap-2 justify-center'>
+                                    <div
+                                      key={i}
+                                      className='flex gap-2 justify-center'>
                                       <p>{`${stat.stat.name}`}</p>
                                       <p className='text-indigo-600'>{`${stat.base_stat}`}</p>
                                     </div>

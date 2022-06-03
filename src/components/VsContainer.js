@@ -55,8 +55,8 @@ function VsContainer({ data, setSavedList }) {
                     <p>
                       Type:{' '}
                       <span className='text-indigo-600'>
-                        {pokemon.data.types.map((type) => {
-                          return <span>{`${type.type.name} `}</span>;
+                        {pokemon.data.types.map((type, i) => {
+                          return <span key={i}>{`${type.type.name} `}</span>;
                         })}
                       </span>
                     </p>
@@ -69,8 +69,10 @@ function VsContainer({ data, setSavedList }) {
                     <p>
                       Abilities:{' '}
                       <span className='text-indigo-600'>
-                        {pokemon.data.abilities.map((ability) => {
-                          return <span>{`${ability.ability.name} `}</span>;
+                        {pokemon.data.abilities.map((ability, i) => {
+                          return (
+                            <span key={i}>{`${ability.ability.name} `}</span>
+                          );
                         })}
                       </span>
                     </p>
@@ -81,14 +83,14 @@ function VsContainer({ data, setSavedList }) {
                         Base stats:
                       </span>{' '}
                       <span className='text-indigo-600'>
-                        {pokemon.data.stats.map((stat) => {
+                        {pokemon.data.stats.map((stat, i) => {
                           return (
-                            <p className='block'>
+                            <div key={i} className='block'>
                               <span className='text-black'>
                                 {`${stat.stat.name}:`}{' '}
                               </span>
                               {`${stat.base_stat} `}
-                            </p>
+                            </div>
                           );
                         })}
                       </span>

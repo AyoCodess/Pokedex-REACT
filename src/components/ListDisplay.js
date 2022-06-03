@@ -62,7 +62,7 @@ function ListDisplay({
 
             return (
               <li
-                key={index + 1}
+                key={pokemon.name}
                 className='col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 w-96 mx-4'>
                 <div className='w-full flex items-center justify-between p-6 space-x-6'>
                   <div className='flex-1 truncate'>
@@ -100,7 +100,7 @@ function ListDisplay({
                       {data && data[index]?.data && (
                         <p className='mt-1  text-sm truncate'>
                           Types:&nbsp;
-                          {data[index].data.types.map((t, i) => {
+                          {data[index].data.types.map((t) => {
                             return (
                               <span key={t.type.name}>{`${t.type.name} `}</span>
                             );

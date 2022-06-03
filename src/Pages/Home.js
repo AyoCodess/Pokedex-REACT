@@ -30,7 +30,7 @@ export default function Home({
   const [filterOptions, setFilterOptions] = useState(false);
   const [listOfGenerations, setListOfGenerations] = useState();
 
-  // - when use selects pages this state updates, called when user hits the reset button
+  // - called when user hits the reset button
   const [pageReset, setPageReset] = useState(null);
 
   // - pagination states
@@ -56,6 +56,8 @@ export default function Home({
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * pokemonPerPage) % items.length;
+
+    console.log(event.selected);
     setItemOffset(newOffset);
   };
 

@@ -51,12 +51,12 @@ function App() {
       }
       try {
         if (!defaultPokemonList) {
-          const data = await axios(
+          const response = await axios(
             `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=${PokemonCount}`
           );
 
-          setItems(data.data.results);
-          setDefaultPokemonList(data.data.results);
+          setItems(response.data.results);
+          setDefaultPokemonList(response.data.results);
 
           setError(false);
           setLoading(false);
@@ -74,15 +74,18 @@ function App() {
 
   useEffect(() => {
     const fetchDetails = async () => {
+      if (!defaultPokemonList) return null; // - prevents axios returning get request returning undefined on app mount
       try {
         if (pokemonName) {
-          const data = await axios(
+          const response = await axios(
             `https://pokeapi.co/api/v2/pokemon/${pokemonName.name}`
           );
 
-          setPokemonDetail(data.data);
+          setPokemonDetail(response.data);
         }
-      } catch (err) {}
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchDetails();
   }, [pokemonName]);
@@ -91,11 +94,11 @@ function App() {
     const fetchDetails = async () => {
       try {
         if (savedList) {
-          let data = savedList.map((pokemon) => {
+          let response = savedList.map((pokemon) => {
             return `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`;
           });
 
-          await Promise.all(data.map((url) => axios(url))).then((data) => {
+          await Promise.all(response.map((url) => axios(url))).then((data) => {
             setVsData(data);
           });
         }
