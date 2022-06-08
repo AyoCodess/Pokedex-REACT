@@ -13,12 +13,14 @@ function App() {
   // - data fetching states
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  //, fetching initial list of pokemon
   const [items, setItems] = useState(null);
 
-  // - after data is fetched, this state saves that list as state
+  // - after data is fetched, this state saves that original list as state to be used to reset the app with
+  // - without having to fetch that data again
   const [defaultPokemonList, setDefaultPokemonList] = useState(null);
 
-  // - when we typically fetch to find a pokemon, we use this state, in secondary fetch to get the details of that pokemon
+  // - when we fetch to find a pokemon, we use this state to get the details of that pokemon
   const [pokemonName, setPokemonName] = useState({});
 
   // - searchfield validation
@@ -39,7 +41,7 @@ function App() {
   // - used to store saved pokemon data into favorites
   const [database, setDatabase] = useState([]);
 
-  // - fetch pokemon data and sets the apps initial state and renders a list.);
+  // - fetch pokemon data and resets the app to its initial state and renders a saved list of pokemon
   const [hasPageReset, setHasPageReset] = useState(false);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ function App() {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      if (!defaultPokemonList) return null; // - prevents axios returning get request returning undefined on app mount
+      if (!defaultPokemonList) return; // - prevents axios returning get request returning undefined on app mount
       try {
         if (pokemonName) {
           const response = await axios(
@@ -110,7 +112,7 @@ function App() {
     fetchDetails();
   }, [savedList]);
 
-  // - removes search field error toast.
+  // - removes search field error toast
   useEffect(() => {
     if (noPokemonFound || hasPageReset) {
       setTimeout(() => {
@@ -135,65 +137,66 @@ function App() {
         title={'Page has already been reset'}
         description={'Please search for pokemon or navigate to page 1'}
       />
+      <main>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Home
+                pokemonPerPage={pokemonPerPage}
+                setPokemonPerPage={setPokemonPerPage}
+                items={items}
+                error={error}
+                setError={setError}
+                loading={loading}
+                setLoading={setLoading}
+                setItems={setItems}
+                defaultPokemonList={defaultPokemonList}
+                pokemonName={pokemonName}
+                setPokemonName={setPokemonName}
+                pokemonDetail={pokemonDetail}
+                setPokemonDetail={setPokemonDetail}
+                setDatabase={setDatabase}
+                noPokemonFound={noPokemonFound}
+                setNoPokemonFound={setNoPokemonFound}
+                hasPageReset={hasPageReset}
+                setHasPageReset={setHasPageReset}
+              />
+            }
+          />
+          <Route
+            path='/favorites'
+            element={
+              <Favorites
+                pokemonName={pokemonName}
+                setPokemonName={setPokemonName}
+                pokemonDetail={pokemonDetail}
+                setPokemonDetail={setPokemonDetail}
+                database={database}
+                setDatabase={setDatabase}
+              />
+            }
+          />
+          <Route
+            path='/vs'
+            element={
+              <Vs
+                defaultPokemonList={defaultPokemonList}
+                savedList={savedList}
+                setSavedList={setSavedList}
+                vsData={vsData}
+                setVsData={setVsData}
+                noFoundPokemon={noPokemonFound}
+                setNoFoundPokemon={setNoPokemonFound}
+              />
+            }
+          />
+        </Routes>
+      </main>
 
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <Home
-              pokemonPerPage={pokemonPerPage}
-              setPokemonPerPage={setPokemonPerPage}
-              items={items}
-              error={error}
-              setError={setError}
-              loading={loading}
-              setLoading={setLoading}
-              setItems={setItems}
-              defaultPokemonList={defaultPokemonList}
-              pokemonName={pokemonName}
-              setPokemonName={setPokemonName}
-              pokemonDetail={pokemonDetail}
-              setPokemonDetail={setPokemonDetail}
-              setDatabase={setDatabase}
-              noPokemonFound={noPokemonFound}
-              setNoPokemonFound={setNoPokemonFound}
-              hasPageReset={hasPageReset}
-              setHasPageReset={setHasPageReset}
-            />
-          }
-        />
-        <Route
-          path='/favorites'
-          element={
-            <Favorites
-              pokemonName={pokemonName}
-              setPokemonName={setPokemonName}
-              pokemonDetail={pokemonDetail}
-              setPokemonDetail={setPokemonDetail}
-              database={database}
-              setDatabase={setDatabase}
-            />
-          }
-        />
-        <Route
-          path='/vs'
-          element={
-            <Vs
-              defaultPokemonList={defaultPokemonList}
-              savedList={savedList}
-              setSavedList={setSavedList}
-              vsData={vsData}
-              setVsData={setVsData}
-              noFoundPokemon={noPokemonFound}
-              setNoFoundPokemon={setNoPokemonFound}
-            />
-          }
-        />
-      </Routes>
-
-      <div className='mt-auto'>
+      <footer className='mt-auto'>
         <Footer />
-      </div>
+      </footer>
     </div>
   );
 }

@@ -21,7 +21,6 @@ export default function Home({
   setPokemonPerPage,
   setDatabase,
   setNoPokemonFound,
-  noPokemonFound,
   hasPageReset,
   setHasPageReset,
 }) {
@@ -116,8 +115,8 @@ export default function Home({
                 setDatabase={setDatabase}
               />
               <ReactPaginate
-                className=' pagination flex flex-wrap justify-center gap-3 p-3 border-2 mx-2 md:w-max rounded-md border-gray-200 mt-4 sm:mx-auto text-sm md:text-lg
-            '
+                className=' pagination flex flex-wrap justify-center gap-3 p-3 border-2 mx-2 md:w-max rounded-md 
+                border-gray-200 mt-4 sm:mx-auto text-sm md:text-lg'
                 breakLabel='...'
                 nextLabel='Next >'
                 onPageChange={handlePageClick}
