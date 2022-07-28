@@ -111,7 +111,7 @@ function ListDisplay({
                   </div>
                   <LazyLoadImage
                     onClick={() => displayDetails(pokemon)}
-                    className='w-18 h-18 bg-gray-300 rounded-full flex-shrink-0'
+                    className='w-18 h-18 bg-gray-300 rounded-full flex-shrink-0 cursor-pointer'
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
                     alt={pokemon.name}
                   />
